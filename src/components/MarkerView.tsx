@@ -146,7 +146,7 @@ type NativeProps = ViewProps & {
   isSelected: boolean;
 };
 
-const RCTMGLMarkerView =
+export const RCTMGLMarkerView =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default MarkerView;
