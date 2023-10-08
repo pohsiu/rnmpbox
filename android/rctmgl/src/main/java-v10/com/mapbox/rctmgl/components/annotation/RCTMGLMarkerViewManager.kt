@@ -2,10 +2,11 @@ package com.mapbox.rctmgl.components.annotation
 
 import android.view.View
 import android.widget.FrameLayout
-import com.mapbox.rctmgl.utils.GeoJSONUtils.toPointGeometry
+import com.mapbox.rctmgl.utils.GeoJSONUtils.toGNPointGeometry
 import com.facebook.react.bridge.ReactApplicationContext
 import com.mapbox.rctmgl.components.AbstractEventEmitter
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.ThemedReactContext
@@ -13,6 +14,7 @@ import com.mapbox.maps.ScreenCoordinate
 import com.mapbox.maps.viewannotation.OnViewAnnotationUpdatedListener
 import com.mapbox.maps.viewannotation.ViewAnnotationManager
 import com.mapbox.rctmgl.components.mapview.RCTMGLMapView
+import com.mapbox.rctmgl.utils.LatLng
 
 class RCTMGLMarkerViewManager(reactApplicationContext: ReactApplicationContext) :
     AbstractEventEmitter<RCTMGLMarkerView?>(reactApplicationContext) {
@@ -21,8 +23,8 @@ class RCTMGLMarkerViewManager(reactApplicationContext: ReactApplicationContext) 
     }
 
     @ReactProp(name = "coordinate")
-    fun setCoordinate(markerView: RCTMGLMarkerView, geoJSONStr: String?) {
-        markerView.setCoordinate(toPointGeometry(geoJSONStr))
+    fun setCoordinate(markerView: RCTMGLMarkerView, coordinates: ReadableArray) {
+        markerView.setCoordinate(toGNPointGeometry(LatLng(coordinates.getDouble(1), coordinates.getDouble(0))))
     }
 
     @ReactProp(name = "anchor")

@@ -135,6 +135,11 @@ object GeoJSONUtils {
         return feature.geometry() as Point?
     }
 
+    @JvmStatic
+    fun toGNPointGeometry(latLng: LatLng): Point? {
+        return Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude())
+    }
+
     fun fromCoordinateBounds(bounds: CoordinateBounds): WritableArray {
         val array = Arguments.createArray()
         val ne = bounds.northeast

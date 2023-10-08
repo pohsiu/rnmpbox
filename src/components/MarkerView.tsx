@@ -17,12 +17,13 @@ const Mapbox = NativeModules.MGLModule;
 
 export const NATIVE_MODULE_NAME = 'RCTMGLMarkerView';
 
+
 type Props = ViewProps & {
   /**
    * The center point (specified as a map coordinate) of the marker.
    */
   coordinate: Position;
-
+  
   /**
    * Any coordinate between (0, 0) and (1, 1), where (0, 0) is the top-left corner of
    * the view, and (1, 1) is the bottom-right corner. Defaults to the center at (0.5, 0.5).
@@ -115,7 +116,7 @@ class MarkerView extends React.PureComponent<Props> {
           },
           this.props.style,
         ]}
-        coordinate={this._getCoordinate(this.props.coordinate)}
+        coordinate={[Number(this.props.coordinate[0]), Number(this.props.coordinate[1])]}
         anchor={anchor}
         allowOverlap={this.props.allowOverlap}
         isSelected={this.props.isSelected}
@@ -140,13 +141,13 @@ class MarkerView extends React.PureComponent<Props> {
 }
 
 type NativeProps = ViewProps & {
-  coordinate: string | undefined;
+  coordinate: Position;
   anchor: { x: number; y: number };
   allowOverlap: boolean;
   isSelected: boolean;
 };
 
-const RCTMGLMarkerView =
+export const RCTMGLMarkerView =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default MarkerView;
